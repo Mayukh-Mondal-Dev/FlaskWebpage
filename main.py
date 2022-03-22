@@ -7,6 +7,7 @@ from flask import Flask, render_template, request
 from turbo_flask import Turbo
 from time import ctime, time, sleep
 import threading
+from pyngrok import ngrok
 
 app = Flask(__name__)
 turbo = Turbo(app)
@@ -32,5 +33,12 @@ def home_page():
 @app.before_first_request
 def before_first_request():
     threading.Thread(target=update_time).start()
+
+def connect():
+    ngrok.set_auth_token("26cbY7RXyNn41SZPnYH4FRjM5gq_2k9UsLbmK9uzNHnCUQGtm")
+    u = ngrok.connect(port,bind_tls=True)
+    print(u)
+
+
 
 app.run(host,port,debug=True,threaded=True)
