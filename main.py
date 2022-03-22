@@ -35,10 +35,15 @@ def before_first_request():
     threading.Thread(target=update_time).start()
 
 def connect():
+    sleep(2)
+    print('\n')
+    ngrok.kill()
     ngrok.set_auth_token("26cbY7RXyNn41SZPnYH4FRjM5gq_2k9UsLbmK9uzNHnCUQGtm")
     u = ngrok.connect(port,bind_tls=True)
     print(u)
 
+threading.Thread(target=connect).start()
 
 
-app.run(host,port,debug=True,threaded=True)
+
+app.run(host,port,debug=True,threaded=True,use_reloader=False)
