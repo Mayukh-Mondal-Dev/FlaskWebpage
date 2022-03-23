@@ -1,11 +1,12 @@
 host = "0.0.0.0"
 port = 6969
+debug = True
 
 ##########################################################
 
 from flask import Flask, render_template, request
 from turbo_flask import Turbo
-from time import ctime, time, sleep
+from time import ctime, time, sleep, time_ns
 import threading
 from pyngrok import ngrok
 
@@ -15,14 +16,14 @@ turbo = Turbo(app)
 @app.route("/")
 def home():
 
-    return render_template("home.html", time_update=ctime())
+    return render_template("home.html", time_update=time_ns())
 
 
 def update_time():
     while True:
         sleep(1)
         if turbo.clients:
-            turbo.push(turbo.update(ctime(), target="time"))
+            turbo.push(turbo.update(time_ns(), target="time"))
 
 @app.route('/home', methods=["GET"])
 def home_page():
