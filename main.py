@@ -16,14 +16,14 @@ turbo = Turbo(app)
 @app.route("/")
 def home():
 
-    return render_template("home.html", time_update=time_ns())
+    return render_template("home.html", time_update=ctime())
 
 
 def update_time():
     while True:
         sleep(1)
         if turbo.clients:
-            turbo.push(turbo.update(time_ns(), target="time"))
+            turbo.push(turbo.update(ctime(), target="time"))
 
 @app.route('/home', methods=["GET"])
 def home_page():
