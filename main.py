@@ -40,6 +40,8 @@ def connect():
     ngrok.kill()
     ngrok.set_auth_token("26cbY7RXyNn41SZPnYH4FRjM5gq_2k9UsLbmK9uzNHnCUQGtm")
     u = ngrok.connect(port,bind_tls=True)
+    p = ngrok.get_tunnels()
+    print(p)
     print(u)
 
 threading.Thread(target=connect).start()
