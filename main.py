@@ -9,6 +9,14 @@ from turbo_flask import Turbo
 from time import ctime, time, sleep, time_ns
 import threading
 from pyngrok import ngrok
+import os
+
+try:
+    from flask_sqlalchemy import SQLAlchemy
+except ImportError:
+    os.system("pip install flask-sqlalchemy")
+finally:
+    from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 turbo = Turbo(app)
