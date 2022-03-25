@@ -1,7 +1,5 @@
 host = "0.0.0.0"
 port = 6969
-debug = True
-
 ##########################################################
 
 from flask import Flask, render_template, request
@@ -9,12 +7,12 @@ from turbo_flask import Turbo
 from time import ctime, time, sleep, time_ns
 import threading
 from pyngrok import ngrok
-import os
+from os import system
 
 try:
     from flask_sqlalchemy import SQLAlchemy
 except ImportError:
-    os.system("pip install flask-sqlalchemy")
+    system("pip install flask-sqlalchemy")
 finally:
     from flask_sqlalchemy import SQLAlchemy
 
@@ -50,10 +48,11 @@ def connect():
     ngrok.set_auth_token("26cbY7RXyNn41SZPnYH4FRjM5gq_2k9UsLbmK9uzNHnCUQGtm")
     u = ngrok.connect(port,bind_tls=True)
     p = ngrok.get_tunnels()
-    print(p)
     print(u)
 
+
 threading.Thread(target=connect).start()
+
 
 #this is a just modification to view changes
 
