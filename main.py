@@ -45,7 +45,7 @@ def connect():
     sleep(2)
     print('\n')
     ngrok.kill()
-    ngrok.set_auth_token("26cbY7RXyNn41SZPnYH4FRjM5gq_2k9UsLbmK9uzNHnCUQGtm")
+    ngrok.set_auth_token("YOUR TOKEN CODE OF NGROK")
     u = ngrok.connect(port,bind_tls=True)
     p = ngrok.get_tunnels()
     print(u)
