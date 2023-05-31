@@ -4,9 +4,8 @@ port = 6969
 
 from flask import Flask, render_template, request
 from turbo_flask import Turbo
-from time import ctime, time, sleep, time_ns
+from time import ctime, sleep
 import threading
-from pyngrok import ngrok
 from os import system
 
 try:
@@ -21,9 +20,7 @@ turbo = Turbo(app)
 
 @app.route("/")
 def home():
-
     return render_template("home.html", time_update=ctime())
-
 
 def update_time():
     while True:
@@ -33,12 +30,10 @@ def update_time():
 
 @app.route('/home', methods=["GET"])
 def home_page():
-    a = ctime()
     ip = request.remote_addr
     return f"<h1>{ip}</h1>"
 
-@app.before_first_request
-def before_first_request():
+with app.app_context():
     threading.Thread(target=update_time).start()
 
 def connect():
@@ -50,10 +45,9 @@ def connect():
     p = ngrok.get_tunnels()
     print(u)
 
-
 threading.Thread(target=connect).start()
-
 
 #this is a just modification to view changes
 
-app.run(host,port,debug=True,threaded=True,use_reloader=False)
+if __name__ == "__main__":
+    app.run(host=host, port=port, debug=True, threaded=True, use_reloader=False)
